@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Könyvek Táblázat</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button id="addButton">Új könyv felvétele</button>
+    </div>
+    <h1>Könyvek</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cím</th>
+                <th>Szerző</th>
+                <th>Kiadás Éve</th>
+                <th>Műfaj</th>
+                <th>Elérhetőség</th>
+            </tr>
+        </thead>
+        <tbody id="tb_konyvek">
+           
+        </tbody>
+    </table>
+    <script>
+        var tábla = document.getElementById("tb_konyvek");
+
+
+        fetch("api/konyvek").then(x => x.json()).then(j => {
+            console.log(j)
+
+
+            for (var i = 0; i < j.length; i++) {
+                var sor = document.createElement("tr");
+                sor.innerHTML = `
+                <td>${j[i].id}</td>
+                <td>${j[i].title}</td>
+                <td>${j[i].author}</td>
+                <td>${j[i].year}</td>
+                <td>${j[i].genre}</td>
+                <td>${j[i].isAvailable}</td>`
+                tábla.appendChild(sor);
+
+            }
+
+            
+
+        })
+
+
+        document.getElementById("addButton").addEventListener("click", () => {
+
+            tábla
+            }
+
+        
+    </script>
+</body>
+</html>
